@@ -76,7 +76,8 @@
                  pos       0.63      0.84      0.72        32
             accuracy                           0.82       300
            macro avg       0.49      0.59      0.54       300
-        weighted avg       0.73      0.82      0.77       300                                                                                                          
+        weighted avg       0.73      0.82      0.77       300
+
 **Training on Split Score dataset:**
 - Gini Index:
   - Results: ['either' 'either' 'either' 'pos' 'either' 'either' 'either' 'color' 'color' 'pos']
@@ -239,7 +240,8 @@
                  pos       0.75      0.48      0.58       161
             accuracy                           0.63       300
            macro avg       0.66      0.65      0.63       300
-        weighted avg       0.67      0.63      0.62       300                                                                                                          
+        weighted avg       0.67      0.63      0.62       300
+
 - Entropy:      
   - Results:['color' 'color' 'color' 'pos' 'color' 'color' 'pos' 'color' 'color' 'pos'] 
   - Accuracy: 63.33333333333333         
@@ -255,4 +257,5 @@
                  pos       0.75      0.48      0.58       161
             accuracy                           0.63       300
            macro avg       0.66      0.65      0.63       300
-        weighted avg       0.67      0.63      0.62       300                                                                                                  
+        weighted avg       0.67      0.63      0.62       300
+    
