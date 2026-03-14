@@ -11,3 +11,51 @@ Test set accuracy: 0.8133
     accuracy                           0.81       300
    macro avg       0.57      0.62      0.56       300
 weighted avg       0.76      0.81      0.78       300
+
+Notes:
+shell commands
+pwd
+ls
+cd
+mv
+rm
+
+Git commit steps
+1. never commit refer/ or .venv
+2. use .gitignore to keep big files / unneeded files from being moved
+3. git status | more
+4. if accidentally commited smth, use restore, select subfolders to remove (eg .venv/lib/*)
+5. need to commit deletions and changes as well as files added
+   a. git add, git restore
+   b. to commit use git commit -m "commit message"
+6. finally do git push
+
+## Git & GitHub
+- Checked **status**: `git status` shows staged, unstaged, and untracked files.
+- **Staging and committing**:
+  - `git add <file>` → stage changes
+  - `git commit -m "message"` → commit changes
+  - `git push origin main` → push commits to GitHub
+- **Undo mistakes**:
+  - Unstage accidentally added files: `git restore --staged <file/folder>`
+  - Reset to earlier commit: `git reset --soft|--mixed|--hard <commit_hash>`
+- **Local vs remote**:
+  - See commits not yet pushed: `git log origin/main..HEAD --oneline`
+- **Ignore files/folders**: Add `venv/` to `.gitignore` to prevent tracking virtual environments.
+
+## Python / VS Code
+- `os.path.dirname(__file__)` → get folder of current script
+- Access files in other folders using `os.path.join(base_dir, "..", "week1", "file.csv")`
+- `pathlib.Path(__file__).parent.parent / "week1" / "file.csv"` → cleaner alternative
+
+## Random Forest / Decision Trees
+- `RandomForestClassifier` hyperparameters:
+  - `n_estimators`, `criterion`, `max_depth`, `min_samples_split`, `min_samples_leaf`, `max_features`, `bootstrap`, `random_state`
+- Plotting:
+  - `tree.plot_tree()` works only for **DecisionTreeClassifier**, not RandomForest
+  - Plot a single tree from forest: `clf.estimators_[0]`
+- Feature importance:
+  - `clf.feature_importances_` shows most important features across all trees
+  - Can plot with matplotlib for better insight
+- Hyperparameter tuning for Decision Trees:
+  - Use `GridSearchCV` or `RandomizedSearchCV` to automatically search for the best parameters
