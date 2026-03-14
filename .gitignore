@@ -1,0 +1,7 @@
+# ignore virtual environment and IDE files
+.venv/
+.idea/
+*.pyc
+__pycache__/
+# ignore data files
+*.csv

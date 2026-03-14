@@ -42,3 +42,6 @@ if __name__ == "__main__":
         for scene in scenes:
             writer.writerow(scene)
 
+exported_df = pd.read_csv('generated_scenes.csv')
+print(exported_df.head())
+
