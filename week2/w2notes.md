@@ -20,7 +20,7 @@ cd
 mv
 rm
 
-Git commit steps
+## Git commit steps
 1. never commit refer/ or .venv
 2. use .gitignore to keep big files / unneeded files from being moved
 3. git status | more
@@ -30,12 +30,6 @@ Git commit steps
    b. to commit use git commit -m "commit message"
 6. finally do git push
 
-## Git & GitHub
-- Checked **status**: `git status` shows staged, unstaged, and untracked files.
-- **Staging and committing**:
-  - `git add <file>` → stage changes
-  - `git commit -m "message"` → commit changes
-  - `git push origin main` → push commits to GitHub
 - **Undo mistakes**:
   - Unstage accidentally added files: `git restore --staged <file/folder>`
   - Reset to earlier commit: `git reset --soft|--mixed|--hard <commit_hash>`
@@ -58,4 +52,14 @@ Git commit steps
   - `clf.feature_importances_` shows most important features across all trees
   - Can plot with matplotlib for better insight
 - Hyperparameter tuning for Decision Trees:
-  - Use `GridSearchCV` or `RandomizedSearchCV` to automatically search for the best parameters
+  - Use `GridSearchCV` or `RandomizedSearchCV` to automatically search for the best parameters 
+  
+## Restoring to previous logs
+- `git log --oneline` to find hash codes for previous commits
+- `git reset --soft [hash code]` of previous safe commit
+- if accidentally moved a soft reset:
+   - use `git reflog` to find list of hash codes
+   - reset to most recent commit
+      - `git reset --soft HEAD@{1}`
+- to check if everything's ok, use `git status | more`
+
