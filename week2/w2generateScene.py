@@ -22,18 +22,21 @@ def generate_scene():
     for _ in range(n):
         obj_type = random.choice(['cup', 'bottle'])
         color = random.choice(['red', 'blue'])
-        position = random.choice(['left', 'right'])
         size = random.choice(['big', 'small'])
-        objects.append({'type': obj_type, 'color': color, 'position': position, 'size': size}) 
+        objects.append({'type': obj_type, 'color': color, 'size': size}) 
     referring_expression = random.choice(['cup', 'bottle'])
     return objects, referring_expression  
 
 if __name__ == "__main__":
     num_scenes = 1000
+    index = 0
     scenes = []
-    for _ in range(num_scenes):
+    while index < num_scenes:
+# make sure no repeated scenes
         scene, ref_expr = generate_scene()
-        scenes.append({'scene': scene, 'referring_expression': ref_expr})
+        if scene not in [s['scene'] for s in scenes]:
+            scenes.append({'scene': scene, 'referring_expression': ref_expr})
+            index += 1
     
     with open('generated_scenes.csv', 'w', newline='') as csvfile:
         fieldnames = ['scene', 'referring_expression']

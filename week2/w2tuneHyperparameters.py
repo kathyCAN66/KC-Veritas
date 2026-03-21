@@ -4,20 +4,30 @@ from sklearn.tree import DecisionTreeClassifier
 from sklearn.model_selection import train_test_split, GridSearchCV
 from sklearn.metrics import accuracy_score, classification_report
 
-# Load dataset
 base_dir = os.path.dirname(__file__)
-df = pd.read_csv(os.path.join(base_dir, "..", "week1", "w1_labels_entropy.csv"))
+file_path = os.path.join(base_dir, "labeled_scenes.csv")
+df = pd.read_csv(file_path)
 
-X = df.iloc[:, 0:3]
-y = df.iloc[:, 4]
+def split_dataset(df):
+    feature_cols = [
+        "num_objects",
+        "num_cups",
+        "num_bottles",
+        "split_score_color",
+        "split_score_size",
+        "split_score_position",
+        "entropy_dec_color",
+        "entropy_dec_size",
+        "entropy_dec_position"
+    ]
+    X = df[feature_cols]
+    y = df["label"]
+    return train_test_split(X, y, test_size=0.3, random_state=6, stratify=y)
 
-# Train/test split
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=6)
+X_train, X_test, y_train, y_test = split_dataset(df)
 
-# Model
 clf = DecisionTreeClassifier(random_state=6)
 
-# Hyperparameter grid
 param_grid = {
     'criterion': ['gini', 'entropy'],
     'max_depth': [None, 5, 10, 12, 15],
@@ -26,7 +36,7 @@ param_grid = {
     'max_features': [None, 'sqrt', 'log2']
 }
 
-# Grid search
+
 grid_search = GridSearchCV(
     estimator=clf,
     param_grid=param_grid,
@@ -35,15 +45,12 @@ grid_search = GridSearchCV(
     n_jobs=-1
 )
 
-# Fit
 grid_search.fit(X_train, y_train)
 
-# Best hyperparamters and score
 print("Best hyperparameters found:")
 print(grid_search.best_params_)
 print(f"Best cross-validation accuracy: {grid_search.best_score_:.4f}")
 
-# Evaluate on test set
 best_clf = grid_search.best_estimator_
 y_pred = best_clf.predict(X_test)
 

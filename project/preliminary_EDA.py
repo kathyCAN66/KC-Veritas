@@ -1,13 +1,50 @@
+import os
 import sys
 # sys.path.append("/Users/kathychen/PycharmProjects/KathyVeritasProj")
 # sys.path.append("/Users/kathychen/PycharmProjects/KathyVeritasProj/refer")
+sys.path.append(os.path.abspath("./refer"))
 from skimage import io
 from refer import REFER
 from pprint import pprint
 import matplotlib.pyplot as plt
 
-data_root = "/Users/kathychen/PycharmProjects/KathyVeritasProj/refer/data"
-refer = REFER(data_root, dataset='refcoco',  splitBy='google')
+data_root = "/Users/kathychen/PycharmProjects/KC-Veritas/refer/data"
+refer = REFER(data_root, dataset='refcoco', splitBy='google')
+
+# All image IDs used in this dataset
+image_ids = refer.getImgIds()
+num_images = len(image_ids)
+
+# All reference IDs (each = one referring expression group)
+ref_ids = refer.getRefIds()
+num_refs = len(ref_ids)
+
+print(f"Total images used: {num_images}")
+print(f"Total referring expressions (refs): {num_refs}")
+
+splits = ['train', 'val', 'test']  # standard splits
+split_image_counts = {}
+split_ref_counts = {}
+
+for split in splits:
+    ref_ids_split = refer.getRefIds(split=split)
+    img_ids_split = refer.getImgIds(ref_ids=ref_ids_split)
+
+    split_ref_counts[split] = len(ref_ids_split)
+    split_image_counts[split] = len(img_ids_split)
+
+print("\nRef counts by split:")
+for k, v in split_ref_counts.items():
+    print(f"{k}: {v}")
+
+print("\nImage counts by split:")
+for k, v in split_image_counts.items():
+    print(f"{k}: {v}")
+
+all_splits = set([refer.Refs[ref_id]['split'] for ref_id in refer.Refs])
+
+print("\nSplits actually present in this dataset:")
+print(all_splits)
 
 ref_ids = refer.getRefIds(split='test')
 first_ref = refer.loadRefs(ref_ids[0])[0]
@@ -19,8 +56,28 @@ print("Expected file name:", first_ref['file_name'])
 ref_ids = refer.getRefIds(split='test')
 print(f"Total test references: {len(ref_ids)}\n")
 
+# Get all image IDs
+image_ids = refer.getImgIds()
+
+total_objects = 0
+
+for img_id in image_ids:
+    # annotation IDs = objects in that image
+    ann_ids = refer.getAnnIds(image_ids=img_id)
+    total_objects += len(ann_ids)
+
+avg_objects_per_image = total_objects / len(image_ids)
+
+print(f"Average number of objects per image: {avg_objects_per_image:.2f}")
+
+num_categories = len(refer.Cats)
+print(f"Number of categories: {num_categories}")
+
+for cat_id, name in refer.Cats.items():
+    print(cat_id, name)
+
 # Show a few examples (e.g., 3 references)
-for i, ref_id in enumerate(ref_ids[:3]):
+for i, ref_id in enumerate(ref_ids[:5]):
     print(f"=== Example {i+1} ===")
     
     # Load the first reference of this ref_id
