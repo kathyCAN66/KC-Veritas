@@ -22,7 +22,7 @@ def split_dataset(df):
     ]
     X = df[feature_cols]
     y = df["label"]
-    return train_test_split(X, y, test_size=0.3, random_state=6, stratify=y)
+    return train_test_split(X, y, test_size=0.3, random_state=6)
 
 X_train, X_test, y_train, y_test = split_dataset(df)
 
@@ -35,7 +35,6 @@ param_grid = {
     'min_samples_leaf': [1, 2, 4],
     'max_features': [None, 'sqrt', 'log2']
 }
-
 
 grid_search = GridSearchCV(
     estimator=clf,

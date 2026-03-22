@@ -1,0 +1,116 @@
+def train(X_train, y_train, max_depth=12, n_estimators=200, min_samples_split=4, min_samples_leaf=2)
+Training on Labeled Scenes dataset:
+Results (first 10 predictions):
+['ask_any' 'ask_position' 'ask_any' 'ask_position' 'ask_position'
+ 'ask_color' 'ask_position' 'ask_position' 'ask_color' 'ask_position']
+Accuracy: 0.8233333333333334
+Confusion Matrix:
+[[ 43   1  13   1]
+ [  5  48   8   2]
+ [  2   4 117   3]
+ [  3   2   9  39]]
+Classification Report:
+              precision    recall  f1-score   support
+
+     ask_any       0.81      0.74      0.77        58
+   ask_color       0.87      0.76      0.81        63
+ask_position       0.80      0.93      0.86       126
+    ask_size       0.87      0.74      0.80        53
+
+    accuracy                           0.82       300
+   macro avg       0.84      0.79      0.81       300
+weighted avg       0.83      0.82      0.82       300
+
+def train(X_train, y_train, max_depth=2, n_estimators=200, min_samples_split=4, min_samples_leaf=2):
+Training on Labeled Scenes dataset:
+Results (first 10 predictions):
+['ask_any' 'ask_position' 'ask_position' 'ask_position' 'ask_position'
+ 'ask_position' 'ask_position' 'ask_position' 'ask_position'
+ 'ask_position']
+Accuracy: 0.5366666666666666
+Confusion Matrix:
+[[ 28   0  30   0]
+ [  0   7  56   0]
+ [  0   0 126   0]
+ [  1   0  52   0]]
+Classification Report:
+              precision    recall  f1-score   support
+
+     ask_any       0.97      0.48      0.64        58
+   ask_color       1.00      0.11      0.20        63
+ask_position       0.48      1.00      0.65       126
+    ask_size       0.00      0.00      0.00        53
+
+    accuracy                           0.54       300
+   macro avg       0.61      0.40      0.37       300
+weighted avg       0.60      0.54      0.44       300
+
+def train(X_train, y_train, max_depth=20, n_estimators=200, min_samples_split=4, min_samples_leaf=2):
+Training on Labeled Scenes dataset:
+Results (first 10 predictions):
+['ask_any' 'ask_position' 'ask_any' 'ask_position' 'ask_position'
+ 'ask_color' 'ask_position' 'ask_position' 'ask_color' 'ask_position']
+Accuracy: 0.8233333333333334
+Confusion Matrix:
+[[ 43   1  13   1]
+ [  6  47   8   2]
+ [  2   5 117   2]
+ [  3   1   9  40]]
+Classification Report:
+              precision    recall  f1-score   support
+
+     ask_any       0.80      0.74      0.77        58
+   ask_color       0.87      0.75      0.80        63
+ask_position       0.80      0.93      0.86       126
+    ask_size       0.89      0.75      0.82        53
+
+    accuracy                           0.82       300
+   macro avg       0.84      0.79      0.81       300
+weighted avg       0.83      0.82      0.82       300
+
+def train(X_train, y_train, max_depth=20, n_estimators=20, min_samples_split=4, min_samples_leaf=2):
+Training on Labeled Scenes dataset:
+Results (first 10 predictions):
+['ask_any' 'ask_color' 'ask_any' 'ask_position' 'ask_position' 'ask_color'
+ 'ask_position' 'ask_position' 'ask_color' 'ask_position']
+Accuracy: 0.8166666666666667
+Confusion Matrix:
+[[ 43   3  12   0]
+ [  5  49   7   2]
+ [  1   8 114   3]
+ [  3   2   9  39]]
+Classification Report:
+              precision    recall  f1-score   support
+
+     ask_any       0.83      0.74      0.78        58
+   ask_color       0.79      0.78      0.78        63
+ask_position       0.80      0.90      0.85       126
+    ask_size       0.89      0.74      0.80        53
+
+    accuracy                           0.82       300
+   macro avg       0.83      0.79      0.81       300
+weighted avg       0.82      0.82      0.82       300
+
+def train(X_train, y_train, max_depth=20, n_estimators=2000, min_samples_split=4, min_samples_leaf=2):
+Training on Labeled Scenes dataset:
+Results (first 10 predictions):
+['ask_any' 'ask_position' 'ask_any' 'ask_position' 'ask_position'
+ 'ask_color' 'ask_position' 'ask_position' 'ask_color' 'ask_position']
+Accuracy: 0.82
+Confusion Matrix:
+[[ 44   2  11   1]
+ [  6  46   8   3]
+ [  2   5 117   2]
+ [  3   3   8  39]]
+Classification Report:
+              precision    recall  f1-score   support
+
+     ask_any       0.80      0.76      0.78        58
+   ask_color       0.82      0.73      0.77        63
+ask_position       0.81      0.93      0.87       126
+    ask_size       0.87      0.74      0.80        53
+
+    accuracy                           0.82       300
+   macro avg       0.83      0.79      0.80       300
+weighted avg       0.82      0.82      0.82       300
+

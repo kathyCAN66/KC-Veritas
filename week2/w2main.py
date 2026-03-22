@@ -9,10 +9,10 @@ from sklearn.ensemble import RandomForestClassifier
 import matplotlib.pyplot as plt
 
 base_dir = os.path.dirname(__file__)
-file_path = os.path.join(base_dir, "labeled_scenes.csv")  # your labeled scenes file
+file_path = os.path.join(base_dir, "labeled_scenes.csv")
 df = pd.read_csv(file_path)
 
-def split_dataset(df):
+def dataset_split(df):
     feature_cols = [
         "num_objects",
         "num_cups",
@@ -28,75 +28,30 @@ def split_dataset(df):
     y = df["label"]
     return train_test_split(X, y, test_size=0.3, random_state=6)
 
-def train_using_gini(X_train, y_train):
-    clf = RandomForestClassifier(
-        n_estimators=200,
-        criterion="gini",
-        max_depth=12,
-        min_samples_split=4,
-        min_samples_leaf=2,
-        max_features="sqrt",
-        bootstrap=True,
-        random_state=6,
-        n_jobs=-1
-    )
-    clf.fit(X_train, y_train)
-    return clf
-
-def train_using_entropy(X_train, y_train):
-    clf = RandomForestClassifier(
-        n_estimators=200,
+def train(X_train, y_train, max_depth=20, n_estimators=200, min_samples_split=2, min_samples_leaf=4):
+    model = RandomForestClassifier(
+        n_estimators=n_estimators,
         criterion="entropy",
-        max_depth=12,
-        min_samples_split=4,
-        min_samples_leaf=2,
-        max_features="sqrt",
+        max_depth=max_depth,
+        min_samples_split=min_samples_split,
+        min_samples_leaf=min_samples_leaf,
         bootstrap=True,
         random_state=6,
         n_jobs=-1
     )
-    clf.fit(X_train, y_train)
-    return clf
+    model.fit(X_train, y_train)
+    return model
 
-def evaluation(clf, X_test, y_test):
-    y_pred = clf.predict(X_test)
+def evaluation(model, X_test, y_test):
+    y_pred = model.predict(X_test)
     print(f'Results (first 10 predictions):\n{y_pred[:10]}')
-    print(f'Accuracy: {accuracy_score(y_test, y_pred) * 100:.2f}%')
+    print(f'Accuracy: {accuracy_score(y_test, y_pred)}')
     print(f'Confusion Matrix:\n{confusion_matrix(y_test, y_pred)}')
     print(f'Classification Report:\n{classification_report(y_test, y_pred)}')
 
 if __name__ == "__main__":
     print(f'\nTraining on Labeled Scenes dataset:')
-    X_train, X_test, y_train, y_test = split_dataset(df)
+    X_train, X_test, y_train, y_test = dataset_split(df)
 
-    # Gini
-    clf_gini = train_using_gini(X_train, y_train)
-    print('\nGini Index:')
-    evaluation(clf_gini, X_test, y_test)
-
-    # Entropy
-    clf_entropy = train_using_entropy(X_train, y_train)
-    print('\nEntropy:')
-    evaluation(clf_entropy, X_test, y_test)
-
-    # Plot first tree from Random Forest (Gini)
-    plt.figure(figsize=(20, 10))
-    tree.plot_tree(
-        clf_gini.estimators_[0],
-        feature_names=X_train.columns,
-        class_names=clf_gini.classes_,
-        filled=True
-    )
-    plt.title('Labeled Scenes - Gini Tree (from Random Forest)')
-    plt.show()
-
-    # Plot first tree from Random Forest (Entropy)
-    plt.figure(figsize=(20, 10))
-    tree.plot_tree(
-        clf_entropy.estimators_[0],
-        feature_names=X_train.columns,
-        class_names=clf_entropy.classes_,
-        filled=True
-    )
-    plt.title('Labeled Scenes - Entropy Tree (from Random Forest)')
-    plt.show()
+    model = train(X_train, y_train)
+    evaluation(model, X_test, y_test)
